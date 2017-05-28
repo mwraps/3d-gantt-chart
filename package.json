@@ -1,0 +1,28 @@
+{
+    "name": "3d-gantt-chart",
+    "version": "0.0.1",
+    "description": "3d Gantt Chart -  Node.js app using Express 4",
+    "engines": {
+        "node": "6.10.2"
+    },
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "ejs": "2.5.6",
+        "express": "4.15.2",
+        "plotly": "1.0.6",
+        "flatpickr": "2.6.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mwraps/3d-gantt-chart"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express"
+    ],
+    "license": "MIT"
+}

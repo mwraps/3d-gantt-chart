@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+
+</head>
+
+<body>
+
+    <nav class="light-blue lighten-1">
+        <div class="nav-wrapper container">
+            <h4 class="brand-logo">3d Gantt Chart</h4>
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="row right-align" style="margin-bottom: 0em; margin-top:0.4em">
+            <form class="col s24">
+                <div class="row">
+                    <div class="col s1">
+                        <h6>From</h6>
+                    </div>
+                    <div class="col s4">
+                        <input id="fromDate" class="flatpickr" type="text" style="margin-bottom: 0em">
+                    </div>
+                    <div class="col s1">
+                        <h6>To</h6>
+                    </div>
+                    <div class="col s4">
+                        <input id="toDate" class="flatpickr" type="text" style="margin-bottom: 0em">
+                    </div>
+                    <div class="col s1 center">
+                        <a class="waves-effect waves-teal btn-flat">Show chart</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="graph"></div>
+
+        <div id="hoverinfo" style="margin-left:80px;"></div>
+
+    </div>
+    <% include ../partials/partial.ejs %>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h5 id="modal-hd">Modal Header</h5>
+                <h6 id="modal-txt">Modal Header</h6>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>

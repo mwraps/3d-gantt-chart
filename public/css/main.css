@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600');
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    background: #FFF;
+    font-size: 62.5%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFF;
+    color: #45555F;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 160%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+.button {
+    color: #222;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    -webkit-transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    font-size: 0.875em;
+    width: 140px;
+    text-align: center;
+    padding: 10px 15px;
+}
+
+.button:hover {
+    letter-spacing: 0;
+    color: white
+}
+
+.button:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    background: #6284FF;
+    z-index: -1;
+    -webkit-transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.button:hover:after {
+    height: 100%;
+}
+
+#navigation {
+    float: right;
+}

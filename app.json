@@ -1,0 +1,7 @@
+{
+    "name": "3d Gantt Chart",
+    "description": "Node.js, Express 4",
+    "repository": "https://github.com/mwraps/3d-gantt-chart",
+    "keywords": ["node", "express", "heroku"],
+    "image": "heroku/nodejs"
+}

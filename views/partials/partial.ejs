@@ -1,0 +1,198 @@
+<title>3d Gantt Chart</title>
+<script src="https://unpkg.com/flatpickr"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        function createTask(x, y, z, workload) {
+            var object = {
+                x: [x, x + workload],
+                y: [y, y],
+                z: [z, z],
+                text: ['Conception', 'Planning', 'Implementation'],
+                name: 'Project',
+                hoverinfo: 'none',
+                mode: 'lines',
+                line: {
+                    width: 20,
+                    color: 1,
+                    colorscale: "Viridis"
+                },
+                type: 'scatter3d'
+            };
+            return object;
+        }
+
+        var data = [
+            createTask('2016-01-19-09.55.00', "Team Lead", "Task 1", 500),
+            createTask('2016-01-19-09.55.00', "Developer 1", "Task 6", 400),
+            createTask('2016-01-19-09.55.00', "Developer 1", "Task 5", 700),
+            createTask('2016-01-19-09.55.00', "Tester 1", "Task 4", 500),
+            createTask('2016-01-19-09.55.00', "Developer 1", "Task 3", 500),
+            createTask('2016-01-19-09.55.00', "Developer 2", "Task 2", 700),
+            createTask('2016-01-19-09.55.00', "Tester 1", "Task 1", 500)
+        ];
+
+        var layout = {
+            showlegend: false,
+            scene: {
+                aspectmode: "manual",
+                aspectratio: {
+                    x: 1,
+                    y: 0.5,
+                    z: 0.5,
+                },
+                xaxis: {
+                    title: 'TIME',
+                    tickwidth: 4
+                },
+                yaxis: {
+                    title: 'RESOURCES',
+                    tickwidth: 4
+                },
+                zaxis: {
+                    title: 'TASKS',
+                    tickwidth: 4
+                }
+            },
+            font: {
+                family: 'Roboto',
+                size: 10,
+                color: '#7f7f7f'
+            },
+            autosize: true,
+            margin: {
+                l: 0,
+                r: 0,
+                b: 0,
+                t: 0,
+                pad: 4
+            }
+        };
+
+        var myPlot = document.getElementById('graph');
+        Plotly.newPlot('graph', data, layout, {
+            displayModeBar: false
+        });
+
+        const fp = flatpickr(".flatpickr", {
+            enableTime: true
+        });
+
+        myPlot.on('plotly_click', function(data) {
+
+            var infotext = data.points.map(function(d) {
+                return [
+                    d.data.name,
+                    ('<p>Task: ' + d.z + '</p><p>Resource: ' + d.y + '</p><p>Start date: ' + d.data.x[0] + '</p><p>End date: ' + d.data.x[1])
+                ];
+            });
+
+            $("#modal-hd").html(infotext[0][0]);
+            $("#modal-txt").html(infotext[0][1]);
+            $('#modal1').modal();
+            $('#modal1').modal('open');
+        });
+
+
+
+        document.addEventListener("keydown", keyDownTextField, false);
+
+
+        function keyDownTextField(e) {
+            var keyCode = e.keyCode;
+            if (keyCode == 107) {
+                debugger;
+                updateZoom(0.4);
+            } else if (keyCode == 109) {
+                updateZoom(-0.4);
+            }
+        }
+
+        var updateZoom = function(zoom) {
+            debugger;
+            var currentY = myPlot._fullLayout.scene.camera.eye.y - zoom;
+            if (currentY < 0) {
+                currentY = 0;
+            }
+            var currentX = myPlot._fullLayout.scene.camera.eye.x - zoom;
+            if (currentX < 0) {
+                currentX = 0;
+            }
+            var currentZ = myPlot._fullLayout.scene.camera.eye.z - zoom;
+            if (currentZ < 0) {
+                currentZ = 0;
+            }
+
+            var upY = myPlot._fullLayout.scene.camera.up.y;
+            var upX = myPlot._fullLayout.scene.camera.up.x;
+            var upZ = myPlot._fullLayout.scene.camera.up.z;
+
+            var centerY = myPlot._fullLayout.scene.camera.center.y;
+            var centerX = myPlot._fullLayout.scene.camera.center.x;
+            var centerZ = myPlot._fullLayout.scene.camera.center.z;
+
+            var update = {
+                showlegend: false,
+                scene: {
+                    camera: {
+                        up: {
+                            x: upX,
+                            y: upY,
+                            z: upZ
+                        },
+                        center: {
+                            x: centerX,
+                            y: centerY,
+                            z: centerZ
+                        },
+                        eye: {
+                            x: currentX,
+                            y: currentY,
+                            z: currentZ
+                        }
+                    },
+                    aspectmode: "manual",
+                    aspectratio: {
+                        x: 1,
+                        y: 0.5,
+                        z: 0.5,
+                    },
+                    xaxis: {
+                        title: 'TIME',
+                        tickwidth: 4
+                    },
+                    yaxis: {
+                        title: 'RESOURCES',
+                        tickwidth: 4
+                    },
+                    zaxis: {
+                        title: 'TASKS',
+                        tickwidth: 4
+                    }
+                },
+                font: {
+                    family: 'Roboto',
+                    size: 10,
+                    color: '#7f7f7f'
+                },
+                autosize: true,
+                margin: {
+                    l: 0,
+                    r: 0,
+                    b: 0,
+                    t: 0,
+                    pad: 4
+                }
+
+            }
+
+            Plotly.relayout('graph', update)
+        }
+
+    });
+</script>
