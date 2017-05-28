@@ -13,7 +13,8 @@
         "ejs": "2.5.6",
         "express": "4.15.2",
         "plotly": "1.0.6",
-        "flatpickr": "2.6.3"
+        "flatpickr": "2.6.3",
+        "pg": "latest"
     },
     "repository": {
         "type": "git",

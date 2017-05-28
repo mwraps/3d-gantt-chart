@@ -8,13 +8,12 @@
 <script>
     $(document).ready(function() {
 
-        function createTask(x, y, z, workload) {
+        function createTask(x1, x2, y, z, project) {
             var object = {
-                x: [x, x + workload],
+                x: [x1, x2],
                 y: [y, y],
                 z: [z, z],
-                text: ['Conception', 'Planning', 'Implementation'],
-                name: 'Project',
+                name: project,
                 hoverinfo: 'none',
                 mode: 'lines',
                 line: {
@@ -28,13 +27,17 @@
         }
 
         var data = [
-            createTask('2016-01-19-09.55.00', "Team Lead", "Task 1", 500),
-            createTask('2016-01-19-09.55.00', "Developer 1", "Task 6", 400),
-            createTask('2016-01-19-09.55.00', "Developer 1", "Task 5", 700),
-            createTask('2016-01-19-09.55.00', "Tester 1", "Task 4", 500),
-            createTask('2016-01-19-09.55.00', "Developer 1", "Task 3", 500),
-            createTask('2016-01-19-09.55.00', "Developer 2", "Task 2", 700),
-            createTask('2016-01-19-09.55.00', "Tester 1", "Task 1", 500)
+            createTask('2016-01-19-09.00.00', '2016-01-24-09.00.00', "Analyst", "Business analysis", "The Best Project"),
+            createTask('2016-01-24-09.00.00', '2016-01-26-09.00.00', "Team Lead", "Conception", "The Best Project"),
+            createTask('2016-01-24-09.00.00', '2016-01-26-09.00.00', "Technical Lead", "Conception", "The Best Project"),
+            createTask('2016-01-26-09.00.00', '2016-01-30-09.00.00', "Technical Lead", "Architecting Solution", "The Best Project"),
+            createTask('2016-01-30-09.00.00', '2016-02-02-09.00.00', "Team Lead", "Project Definition", "The Best Project"),
+            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer One", "Implementation", "The Best Project"),
+            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer Two", "Implementation", "The Best Project"),
+            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer Three", "Implementation", "The Best Project"),
+            createTask('2016-02-16-09.00.00', '2016-02-18-09.00.00', "Team Lead", "Verification", "The Best Project"),
+            createTask('2016-02-18-09.00.00', '2016-02-26-09.00.00', "Tester One", "Testing", "The Best Project"),
+            createTask('2016-03-04-09.00.00', '2016-03-05-09.00.00', "Team Lead", "Project Delivery", "The Best Project")
         ];
 
         var layout = {
