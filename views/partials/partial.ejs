@@ -27,17 +27,34 @@
         }
 
         var data = [
-            createTask('2016-01-19-09.00.00', '2016-01-24-09.00.00', "Analyst", "Business analysis", "The Best Project"),
-            createTask('2016-01-24-09.00.00', '2016-01-26-09.00.00', "Team Lead", "Conception", "The Best Project"),
-            createTask('2016-01-24-09.00.00', '2016-01-26-09.00.00', "Technical Lead", "Conception", "The Best Project"),
-            createTask('2016-01-26-09.00.00', '2016-01-30-09.00.00', "Technical Lead", "Architecting Solution", "The Best Project"),
-            createTask('2016-01-30-09.00.00', '2016-02-02-09.00.00', "Team Lead", "Project Definition", "The Best Project"),
-            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer One", "Implementation", "The Best Project"),
-            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer Two", "Implementation", "The Best Project"),
-            createTask('2016-02-02-09.00.00', '2016-02-16-09.00.00', "Developer Three", "Implementation", "The Best Project"),
-            createTask('2016-02-16-09.00.00', '2016-02-18-09.00.00', "Team Lead", "Verification", "The Best Project"),
-            createTask('2016-02-18-09.00.00', '2016-02-26-09.00.00', "Tester One", "Testing", "The Best Project"),
-            createTask('2016-03-04-09.00.00', '2016-03-05-09.00.00', "Team Lead", "Project Delivery", "The Best Project")
+            createTask('2016-01-19', '2016-01-24', "Analyst: John Smith", "Business analysis", "Development Project: Conception Stage"),
+            createTask('2016-01-22', '2016-01-26', "Team Lead: Jack Strong", "Conception", "Development Project: Conception Stage"),
+            createTask('2016-01-24', '2016-02-5', "Technical Lead: Michael Jackson", "Conception", "Development Project: Conception Stage"),
+            createTask('2016-01-26', '2016-01-30', "Technical Lead: Michael Jackson", "Architecting Solution", "Development Project: Definition Stage"),
+            createTask('2016-01-30', '2016-02-06', "Team Lead: Jack Strong", "Project Definition", "Development Project: Definition Stage"),
+            createTask('2016-02-02', '2016-02-16', "Developer: Robert One", "Implementation", "Development Project: Development Stage"),
+            createTask('2016-02-02', '2016-02-18', "Developer: James Two", "Implementation", "Development Project: Development Stage"),
+            createTask('2016-02-02', '2016-02-16', "Developer: Filippe Three", "Implementation", "Development Project: Development Stage"),
+            createTask('2016-02-10', '2016-02-27', "Tester: Jamie Jones", "Testing", "Development Project: Development Stage"),
+            createTask('2016-02-14', '2016-02-27', "Tester: Norah Jones", "Testing", "Development Project: Development Stage"),
+            createTask('2016-02-16', '2016-02-27', "Tester: Emma Jones", "Testing", "Development Project: Development Stage"),
+            createTask('2016-02-27', '2016-03-03', "Team Lead: Jack Strong", "Verification", "Development Project: Development Stage"),
+            createTask('2016-03-04', '2016-03-15', "Technical Lead: Michael Jackson", "Project Delivery", "Development Project: Implementation Stage"),
+            createTask('2016-03-04', '2016-03-15', "Team Lead: Jack Strong", "Project Delivery", "Development Project: Implementation Stage"),
+            createTask('2016-04-19', '2016-04-24', "Analyst: John Smith", "Business analysis", "Development Project II: Conception Stage"),
+            createTask('2016-04-22', '2016-04-26', "Team Lead: Jack Strong", "Conception", "Development Project II: Conception Stage"),
+            createTask('2016-04-24', '2016-05-5', "Technical Lead: Michael Jackson", "Conception", "Development Project II: Conception Stage"),
+            createTask('2016-04-26', '2016-04-30', "Technical Lead: Michael Jackson", "Architecting Solution", "Development Project II: Definition Stage"),
+            createTask('2016-04-30', '2016-05-06', "Team Lead: Jack Strong", "Project Definition", "Development Project II: Definition Stage"),
+            createTask('2016-05-02', '2016-05-16', "Developer: Robert One", "Implementation", "Development Project II: Development Stage"),
+            createTask('2016-05-02', '2016-05-18', "Developer: James Two", "Implementation", "Development Project II: Development Stage"),
+            createTask('2016-05-02', '2016-05-16', "Developer: Filippe Three", "Implementation", "Development Project II: Development Stage"),
+            createTask('2016-05-10', '2016-05-27', "Tester: Jamie Jones", "Testing", "Development Project II: Development Stage"),
+            createTask('2016-05-14', '2016-05-27', "Tester: Norah Jones", "Testing", "Development Project II: Development Stage"),
+            createTask('2016-05-16', '2016-05-27', "Tester: Emma Jones", "Testing", "Development Project II: Development Stage"),
+            createTask('2016-05-27', '2016-06-03', "Team Lead: Jack Strong", "Verification", "Development Project II: Development Stage"),
+            createTask('2016-06-04', '2016-06-15', "Technical Lead: Michael Jackson", "Project Delivery", "Development Project II: Implementation Stage"),
+            createTask('2016-06-04', '2016-06-15', "Team Lead: Jack Strong", "Project Delivery", "Development Project II: Implementation Stage")
         ];
 
         var layout = {
@@ -77,13 +94,13 @@
             }
         };
 
+        const fp = flatpickr(".flatpickr", {
+            enableTime: false
+        });
+
         var myPlot = document.getElementById('graph');
         Plotly.newPlot('graph', data, layout, {
             displayModeBar: false
-        });
-
-        const fp = flatpickr(".flatpickr", {
-            enableTime: true
         });
 
         myPlot.on('plotly_click', function(data) {
@@ -191,11 +208,50 @@
                     t: 0,
                     pad: 4
                 }
-
             }
-
             Plotly.relayout('graph', update)
         }
+
+
+        var btn = document.getElementById('showButton');
+        btn.addEventListener("click", showNewPlotly);
+
+        function showNewPlotly() {
+            var startCalendar = flatpickr("#fromDate");
+            var startDate = startCalendar.input.value;
+            var endCalendar = flatpickr("#toDate");
+            var endDate = endCalendar.input.value;
+            var newData = new Array();
+
+            for (i = 0; i < data.length; i++) {
+                if (startDate < data[i].x[0] && endDate > data[i].x[1]) {
+                    newData.push(data[i]);
+                }
+            }
+
+            if (newData.length > 0) {
+
+                var newPlot = document.getElementById('graph');
+                Plotly.newPlot('graph', newData, layout, {
+                    displayModeBar: false
+                });
+
+                newPlot.on('plotly_click', function(data) {
+                    var infotext = data.points.map(function(d) {
+                        return [
+                            d.data.name,
+                            ('<p>Task: ' + d.z + '</p><p>Resource: ' + d.y + '</p><p>Start date: ' + d.data.x[0] + '</p><p>End date: ' + d.data.x[1])
+                        ];
+                    });
+
+                    $("#modal-hd").html(infotext[0][0]);
+                    $("#modal-txt").html(infotext[0][1]);
+                    $('#modal1').modal();
+                    $('#modal1').modal('open');
+                });
+            }
+        }
+
 
     });
 </script>
